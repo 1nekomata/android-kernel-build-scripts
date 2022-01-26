@@ -9,7 +9,7 @@ sleep 10 #you can remove this line after editing too
 make ARCH=arm64 <device>_defconfig O=out -j$(nproc --all)
 echo "starting compiling"
 echo "good luck"
-PATH=$PATHCC \
+PATH="${PATHCC}:${PATHBAK} \
 make -j$(nproc --all) O=out \
 	ARCH=arm64 \
 	CC=clang \
