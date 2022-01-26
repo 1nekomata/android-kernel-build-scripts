@@ -1,5 +1,5 @@
 echo "A script to build with clang"
-echo "based on example from here https://github.com/nathanchance/android-kernel-clang"
+echo "based on example from here https://github.com/nathanchance/android-kernel-clang#how-to-compile-the-kernel-with-clang-standalone"
 sleep 2
 echo "cleaning up"
 make clean -j$(nproc --all) && make mrproper -j$(nproc --all) && make O=out clean -j$(nproc --all) && make O=out mrproper -j$(nproc --all)
