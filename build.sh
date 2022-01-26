@@ -1,6 +1,6 @@
 echo "A script to build with clang"
 echo "based on example from here https://github.com/nathanchance/android-kernel-clang#how-to-compile-the-kernel-with-clang-standalone"
-sleep 2
+sleep 1
 
 help() {
 	echo "possible options"
