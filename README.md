@@ -4,7 +4,7 @@
 
 Used as a sorts of Wrapper to compile a kernel with clang.
 Needs to be put inside the Kernel source tree. 
-Only works properly after `setup-toolchains.sh` has been ran
+Only works properly after `setup-toolchains.sh` has been ran.
 
 # setup-toolchains.sh
 
