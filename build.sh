@@ -10,6 +10,8 @@ echo "creating .config"
 echo "please EDIT THIS SCRIPT and replace <device>_defconfig with the name of your defconfig"
 sleep 10 #you can remove this line after editing too
 
+#we have to use the same compilers to create the .config
+#otherwise make will try to reconfigure
 PATH="${PATHCC}:${PATHBAK}" \
 make O=out <device>_defconfig -j$(nproc --all) \
         ARCH=arm64 \
