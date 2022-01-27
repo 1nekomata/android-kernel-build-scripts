@@ -1,7 +1,7 @@
 echo "create toolchains directory"
 if [ -n "$1" ]; then
 	echo "creating $1/toolchains"
-	mkdir "$1"/toolchains
+	mkdir "$PWD"/"$1"/toolchains -p
 	cd $1/toolchains
 	export TC=$1
 	echo $TC
