@@ -33,7 +33,7 @@ clang -v
 echo "restoring original PATH entries"
 export PATHCC=$PATH
 export PATH=$PATHBAK
-echo "if you want to remove all the entries again use export PATH=$PATHCC and to restore it use PATH=$PATHBAK. i recommend doing that or running build.sh if you have another clang version in your PATH"
+echo "if you want to remove all the entries again use export PATH=\$PATHCC and to restore it use PATH=\$PATHBAK. i recommend running build.sh if you have another clang version in your PATH since it handles that by itself"
 echo "adding PATHCC and PATHBAK to .bashrc"
 cat << EOF >> $HOME/.bashrc
 export PATCC=$HOME/toolchains/arm-eabi-7.0/bin:$HOME/toolchains/aarch64-linux-android-7.0/bin:$HOME/toolchains/aosp-clang/clang-r437112b/bin
