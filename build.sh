@@ -57,7 +57,7 @@ build() {
 	fi
 }
 
-while getopts ":hcdm:" option; do
+while getopts "hcd:m" option; do
 	case $option in
 		h) # help menu
 			help
@@ -66,16 +66,22 @@ while getopts ":hcdm:" option; do
 			cl
 			exit;;
 		d) # run make defconfig
-			dcon
-			build
-			exit;;
+			export DCON=true;;
 		m) # run menuconfig
-			mcon
-			build
-			exit;;
+			export MCON=true;;
 		\?) # invalid option
 			help
 			echo "\e[0;91minvalid option!\e[0m"
 			exit;;
 	esac
 done
+
+if [ "$DCON" = true ]; then
+	dcon "$@"
+fi
+
+if [ "$MCON" = true ]; then
+	mcon
+fi
+
+build
