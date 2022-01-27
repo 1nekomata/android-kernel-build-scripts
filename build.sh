@@ -5,7 +5,7 @@ sleep 1
 help() {
 	echo "possible options"
 	echo ""
-	echo "-h                 this help menu"
+	echo "            -d     this help menu"
 	echo "-c                 clean the source tree"
 	echo "-d [defconfig]     create config from specified defconfig and start compiling"
 	echo "-m                 create config using menuconfig and start compiling"
