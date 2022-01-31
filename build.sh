@@ -1,3 +1,5 @@
+#!/bin/bash
+
 echo "A script to build with clang"
 echo "based on example from here https://github.com/nathanchance/android-kernel-clang#how-to-compile-the-kernel-with-clang-standalone"
 sleep 1
@@ -5,7 +7,7 @@ sleep 1
 help() {
 	echo "possible options"
 	echo ""
-	echo "            -d     this help menu"
+	echo "-h                 this help menu"
 	echo "-c                 clean the source tree"
 	echo "-d [defconfig]     create config from specified defconfig and start compiling"
 	echo "-m                 create config using menuconfig and start compiling"
@@ -20,7 +22,7 @@ dcon() {
 	if [ -n "$1" ]; then
 		echo "creating .config"
 		PATH="${PATHCC}:${PATHBAK}" \
-		make O=out $1 -j$(nproc --all) \
+		make O=out "$1" -j$(nproc --all) \
 			ARCH=arm64 \
 			CC=clang \
 			CLANG_TRIPLE=aarch64-linux-gnu- \
