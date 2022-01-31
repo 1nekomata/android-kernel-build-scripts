@@ -4,13 +4,13 @@ echo "create toolchains directory"
 if [ -n "$1" ]; then
 	echo "creating $PWD/$1/toolchains"
 	mkdir "$PWD"/"$1"/toolchains -p
-	cd "$1"/toolchains || "echo failed to cd!" && exit
+	cd "$1"/toolchains || echo "\e[0;91mcd failed! exiting...\e[0m" && exit
 	export TC="$PWD"/"$1"
 else
 	echo "no directory specified"
 	echo "creating directory at $HOME"
 	mkdir "$HOME"/toolchains
-	cd "$HOME"/toolchains || echo "failed to cd" && exit
+	cd "$HOME"/toolchains || echo "\e[0;91mcd failed! exiting...\e[0m" && exit
 	export TC="$HOME"
 fi
 
