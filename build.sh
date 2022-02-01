@@ -3,6 +3,7 @@
 echo "A script to build with clang"
 echo "based on example from here https://github.com/nathanchance/android-kernel-clang#how-to-compile-the-kernel-with-clang-standalone"
 sleep 1
+export PATHBAK=${PATH}
 
 help() {
 	echo "possible options"
@@ -19,10 +20,11 @@ cl() {
 }
 
 dcon() {
-	if [ -n "$1" ]; then
+	if [ -n "$2" ]; then
 		echo "creating .config"
+		echo "$2"
 		PATH="${PATHCC}:${PATHBAK}" \
-		make O=out "$1" -j$(nproc --all) \
+		make O=out "$2" -j$(nproc --all) \
 			ARCH=arm64 \
 			CC=clang \
 			CLANG_TRIPLE=aarch64-linux-gnu- \
