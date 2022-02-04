@@ -2,10 +2,10 @@
 
 echo "create toolchains directory"
 if [ -n "$1" ]; then
-	echo "creating $PWD/$1/toolchains"
-	mkdir "$PWD"/"$1"/toolchains -p
+	echo "creating $HOME/$1/toolchains"
+	mkdir "$HOME"/"$1"/toolchains -p
 	cd "$1"/toolchains || echo "\e[0;91mcd failed! exiting...\e[0m" && exit
-	export TC="$PWD"/"$1"
+	export TC="$HOME"/"$1"
 else
 	echo "no directory specified"
 	echo "creating directory at $HOME"
@@ -14,6 +14,9 @@ else
 	export TC="$HOME"
 fi
 
+echo "clone mkbootimg tools"
+git clone https://android.googlesource.com/platform/system/tools/mkbootimg --depth=1 bit
+
 echo "clone aarch64 and arm gcc"
 git clone https://gitlab.com/UBERTC/arm-eabi-7.0 --depth=1
 git clone https://gitlab.com/UBERTC/aarch64-linux-android-7.0-kernel --depth=1 aarch64-linux-android-7.0
@@ -21,8 +24,8 @@ git clone https://gitlab.com/UBERTC/aarch64-linux-android-7.0-kernel --depth=1 a
 echo "clone AOSP clang"
 git clone https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86 --depth=1 aosp-clang
 
-echo "add toolchains to $PATH"
-export PATH="$PATH":"$TC"/toolchains/arm-eabi-7.0/bin:"$TC"/toolchains/aarch64-linux-android-7.0/bin:"$TC"/toolchains/aosp-clang/clang-r437112b/bin
+echo "add tools to $PATH"
+export PATH="$PATH":"$TC"/toolchains/arm-eabi-7.0/bin:"$TC"/toolchains/aarch64-linux-android-7.0/bin:"$TC"/toolchains/aosp-clang/clang-r437112b/bin:"$TC"/toolchains/bit
 
 echo "WARNING you might need to adjust version of clang that you want to use. the repository includes several versions that are stored in separate directories"
 echo ""
@@ -49,7 +52,7 @@ echo ""
 echo "adding PATHCC and PATHBAK to .bashrc"
 
 cat << EOF >> "$HOME"/.bashrc
-export PATHCC="$TC"/toolchains/arm-eabi-7.0/bin:"$TC"/toolchains/aarch64-linux-android-7.0/bin:"$TC"/toolchains/aosp-clang/clang-r437112b/bin
+export PATHCC="$TC"/toolchains/arm-eabi-7.0/bin:"$TC"/toolchains/aarch64-linux-android-7.0/bin:"$TC"/toolchains/aosp-clang/clang-r437112b/bin:"$TC"/toolchains/bit
 export PATHBAK="$PATH"
 EOF
 
