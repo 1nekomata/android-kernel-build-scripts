@@ -74,8 +74,8 @@ while getopts "hcd:m" option; do
 		m) # run menuconfig
 			export MCON=true;;
 		\?) # invalid option
-			help
 			echo "\e[0;91minvalid option!\e[0m"
+			help
 			exit;;
 	esac
 done
