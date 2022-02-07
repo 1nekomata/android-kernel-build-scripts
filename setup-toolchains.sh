@@ -1,5 +1,14 @@
 #!/bin/bash
 
+echo "check if dependencies are met"
+if [ ID=arch = "$(cat /etc/os-release | grep ID=)" || ID=manjaro = "$(cat /etc/os-release | grep ID=)" || ID=artix = "$(cat /etc/os-release | grep ID=)" ]; then {
+	sudo pacman -Syu base base-devel ncurses git fakeroot xz openssl bc flex libelf bison
+} else if [ ID=ubuntu "$(cat /etc/os-release | grep ID=)" || ID=debian "$(cat /etc/os-release | grep ID=)" || ID_LIKE=debian "$(cat /etc/os-release | grep ID=)" ]; then {
+	sudo apt-get install git fakeroot build-essential ncurses-dev xz-utils libssl-dev bc flex libelf-dev bison
+} else {
+	echo "unable to check for dependencies because the os isnt known"
+	echo "you can manually check for following or similar packages: git fakeroot build-essential ncurses-dev xz-utils libssl-dev bc flex libelf-dev bison"
+}
 echo "create toolchains directory"
 if [ -n "$1" ]; then
 	echo "creating $HOME/$1/toolchains"

@@ -3,7 +3,6 @@
 echo "A script to build with clang"
 echo "based on example from here https://github.com/nathanchance/android-kernel-clang#how-to-compile-the-kernel-with-clang-standalone"
 sleep 1
-export PATHBAK=${PATH}
 
 help() {
 	echo "possible options"
