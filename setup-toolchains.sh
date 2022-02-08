@@ -61,7 +61,7 @@ export PATH="$PATHBAK"
 
 echo "if you want to remove all the entries again use export PATH=\$PATHCC and to restore it use PATH=\$PATHBAK. i recommend running build.sh if you have another clang version in your PATH since it handles that by itself"
 echo ""
-echo "adding \PATHCC and \PATHBAK to .bashrc"
+echo "adding PATHCC and PATHBAK to .bashrc"
 if [ "$(cat ~/.bashrc | grep -o PATHCC)" = "PATHCC" ]; then
 	echo "entries exists already. is this the second time of you running this script?" 
 else
