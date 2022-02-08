@@ -1,25 +1,28 @@
 #!/bin/bash
 
 echo "check if dependencies are met"
-if [ ID=arch = "$(cat /etc/os-release | grep ID=)" || ID=manjaro = "$(cat /etc/os-release | grep ID=)" || ID=artix = "$(cat /etc/os-release | grep ID=)" ]; then {
+if [ ID=arch = "$(cat /etc/os-release | grep ID=arch)" ] || [ ID=manjaro = "$(cat /etc/os-release | grep ID=manjaro)" ] || [ ID=artix = "$(cat /etc/os-release | grep ID=manjaro)" ]; then
 	sudo pacman -Syu base base-devel ncurses git fakeroot xz openssl bc flex libelf bison
-} else if [ ID=ubuntu "$(cat /etc/os-release | grep ID=)" || ID=debian "$(cat /etc/os-release | grep ID=)" || ID_LIKE=debian "$(cat /etc/os-release | grep ID=)" ]; then {
+
+elif [ "ID=ubuntu" = "$(cat /etc/os-release | grep ID=ubuntu)" ] || [ "ID=debian" = "$(cat /etc/os-release | grep ID=debian)" ] || [ "ID_LIKE=debian" = "$(cat /etc/os-release | grep ID_LIKE=debian)" ]; then
 	sudo apt-get install git fakeroot build-essential ncurses-dev xz-utils libssl-dev bc flex libelf-dev bison
-} else {
+else
 	echo "unable to check for dependencies because the os isnt known"
 	echo "you can manually check for following or similar packages: git fakeroot build-essential ncurses-dev xz-utils libssl-dev bc flex libelf-dev bison"
-}
+fi
+
 echo "create toolchains directory"
+
 if [ -n "$1" ]; then
-	echo "creating $HOME/$1/toolchains"
-	mkdir "$HOME"/"$1"/toolchains -p
-	cd "$1"/toolchains || echo "\e[0;91mcd failed! exiting...\e[0m" && exit
-	export TC="$HOME"/"$1"
+	echo "creating $1/toolchains"
+	mkdir "$1"/toolchains -p #|| echo "dir exists!"
+	cd "$1"/toolchains #|| echo "\e[0;91mcd failed! exiting...\e[0m" && exit
+	export TC="$1"
 else
 	echo "no directory specified"
 	echo "creating directory at $HOME"
-	mkdir "$HOME"/toolchains
-	cd "$HOME"/toolchains || echo "\e[0;91mcd failed! exiting...\e[0m" && exit
+	mkdir "$HOME"/toolchains -p || echo "dir exists!"
+	cd "$HOME"/toolchains #|| echo "\e[0;91mcd failed! exiting...\e[0m" && exit
 	export TC="$HOME"
 fi
 
@@ -58,11 +61,14 @@ export PATH="$PATHBAK"
 
 echo "if you want to remove all the entries again use export PATH=\$PATHCC and to restore it use PATH=\$PATHBAK. i recommend running build.sh if you have another clang version in your PATH since it handles that by itself"
 echo ""
-echo "adding PATHCC and PATHBAK to .bashrc"
-
+echo "adding \PATHCC and \PATHBAK to .bashrc"
+if [ "$(cat ~/.bashrc | grep -o PATHCC)" = "PATHCC" ]; then
+	echo "entries exists already. is this the second time of you running this script?" 
+else
 cat << EOF >> "$HOME"/.bashrc
 export PATHCC="$TC"/toolchains/arm-eabi-7.0/bin:"$TC"/toolchains/aarch64-linux-android-7.0/bin:"$TC"/toolchains/aosp-clang/clang-r437112b/bin:"$TC"/toolchains/bit
 export PATHBAK="$PATH"
 EOF
-
+fi
 echo "setup complete"
+source ~/.bashrc
